@@ -1,5 +1,3 @@
-setwd("C:/GitHubRepos/Summer Project - R/RainShelter Barley/Soil Water Deficit App")
-
 library(shiny)
 source('datafunctions.R')
 library(dplyr)
