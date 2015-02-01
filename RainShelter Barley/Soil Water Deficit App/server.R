@@ -48,9 +48,10 @@ shinyServer(function(input, output) {
     
     ggplot(summary_data()) + 
       geom_ribbon(aes(x=Time, ymin=Min, ymax=Max, fill=Group), alpha=0.2) +
-      geom_line(aes(x=Time, y=Mean, colour=Group, group=Group))+
+      geom_line(aes(x=Time, y=Mean, colour=Group, group=Group), size=0.6)+
       ylim (min_value(), max_value()) +
       scale_x_datetime(breaks = "2 days", labels=date_format("%b %d")) +
-      xlab("Date") + ylab("Soil Water Deficit (mm)")    
+      xlab("Date") + ylab("Soil Water Deficit (mm)") 
+      #theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
   }, height=600, width=1600)
 })
