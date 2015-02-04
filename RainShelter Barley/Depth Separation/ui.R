@@ -23,6 +23,10 @@ shinyUI(
       dateRangeInput('dateRange',
                      label = 'Date range input',
                      start = Sys.Date()- 30, end = Sys.Date()),
+<<<<<<< HEAD
+=======
+      selectInput('sensorType', "Select a Sensor Type", choices=sensorList()),
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
       
       #)
       
