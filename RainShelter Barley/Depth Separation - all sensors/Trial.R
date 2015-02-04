@@ -4,7 +4,11 @@ library(dplyr)
 library(ggplot2)
 source('datafunctions.R')
 
+<<<<<<< HEAD:RainShelter Barley/Depth Separation - all sensors/Trial.R
 
+=======
+<<<<<<< HEAD
+>>>>>>> 57e5deb6739518e7e27abc9553305e225f562a98:RainShelter Barley/Depth Separation/Trial.R
 allData <- function() {
   library(tidyr)
   con <- DBConnection()
@@ -22,7 +26,11 @@ sensor_type <- "VolumetricWaterContent"
 data <- mergeData(start_date, end_date, sensor_type)
 
 df<-calculateLayerWater(data)
+<<<<<<< HEAD:RainShelter Barley/Depth Separation - all sensors/Trial.R
 
+=======
+=======
+>>>>>>> 57e5deb6739518e7e27abc9553305e225f562a98:RainShelter Barley/Depth Separation/Trial.R
 
 start_date <-'2014-11-05'
 end_date <- '2014-11-30'
@@ -30,7 +38,11 @@ sensor_type <- "VolumetricWaterContent"
 data <- mergeData(start_date, end_date, sensor_type)
 
 df<-calculateProfileWater(data)
+<<<<<<< HEAD:RainShelter Barley/Depth Separation - all sensors/Trial.R
 
+=======
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 57e5deb6739518e7e27abc9553305e225f562a98:RainShelter Barley/Depth Separation/Trial.R
 
 
   
@@ -44,8 +56,17 @@ profile_water <- data %>%
 
 ggplot(profile_water)+
   geom_line(aes(x=Time, y=avg, colour=Group, group=Group))+
+<<<<<<< HEAD:RainShelter Barley/Depth Separation - all sensors/Trial.R
     facet_wrap(~ depth, ncol=2, scales="free_y")+
     ylab("Layer Water (mm)")
     facet_wrap(~ depth, ncol=2, scales="free_y")
 
+=======
+<<<<<<< HEAD
+    facet_wrap(~ depth, ncol=2, scales="free_y")+
+    ylab("Layer Water (mm)")
+=======
+    facet_wrap(~ depth, ncol=2, scales="free_y")
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 57e5deb6739518e7e27abc9553305e225f562a98:RainShelter Barley/Depth Separation/Trial.R
 
