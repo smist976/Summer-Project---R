@@ -60,6 +60,7 @@ calculateFieldCapacity <- function(){
 }
 
 
+
 calculateLayerWater <- function(data) {
   layer_water<-data %>% 
     mutate(layerwater= ifelse(depth=='D1I', value*150/2, 
@@ -68,7 +69,17 @@ calculateLayerWater <- function(data) {
   group_by(Time, Group, depth) 
 
   return(layer_water)
+}
 
+calculateProfileWater <- function(data) {
+  profile_water<-data %>% 
+    mutate(layerwater= ifelse(depth=='D1I', value*150/2, 
+                              ifelse(depth=='D1B', value*150/2,
+                                     ifelse(depth=='D2', value*150, value*300))))%>%
+                                group_by(Time, Group, depth) %>%
+                                  summarise(profilewater=mean(layerwater, na.rm=TRUE))
+  
+  return(profile_water)
 }
 
 calculateSoilWaterDeficit <- function(data) {
@@ -78,3 +89,4 @@ calculateSoilWaterDeficit <- function(data) {
     mutate(soilwaterdeficit = -(fieldcapacity-profilewater))
   return(soil_water_deficit)
 }
+

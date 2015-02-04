@@ -11,20 +11,20 @@ shinyServer(function(input, output) {
   subset_data <- reactive({
     start_date = input$dateRange[1]
     end_date = input$dateRange[2]
-    sensor_type ="VolumetricWaterContent"
+    sensor_type =input$sensorType
     df <- mergeData(start_date, end_date, sensor_type)
     return(df)
   })
   
   
   summary_data <- reactive({
-    
-    layer_water<-subset_data()%>%
-      calculateLayerWater()%>% 
-          summarise(avg=mean(layerwater, na.rm=TRUE))
-    return(layer_water)
+    subset_data()%>%
+      group_by(Group, Time, depth) %>%
+        summarise(Mean=mean(value, na.rm=TRUE),
+                Max=max(value, na.rm=TRUE),
+                Min=min(value, na.rm=TRUE))
   })
-  
+    
   min_value <- reactive ({
     df<-summary_data()
     min_value <- quantile(df$Min, 0.15)
@@ -35,17 +35,20 @@ shinyServer(function(input, output) {
   
   max_value <- reactive ({
     df<-summary_data()
-    #min_value <- max(df$Max, na.rm=TRUE)
     max_value <- quantile(df$Max, 0.85)
+    max_value <- quantile(df$Max, .85)
     return(max_value)
   })
   
   output$soilwaterdeficitPlot <- renderPlot({
     
-    ggplot(summary_data())+
-      geom_line(aes(x=Time, y=avg, colour=Group, group=Group), size=0.6)+
-      facet_wrap(~ depth, ncol=2, scales="free_y")+
-      ylab("Layer Water (mm)") 
-      #theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
-  }, height=825, width=1650)
+
+    ggplot(summary_data()) + 
+      geom_line(aes(x=Time, y=Mean, colour=Group, group=Group))+
+      facet_wrap(~ depth, ncol=2, scales= "free_y") + 
+
+      scale_x_datetime(breaks = "2 days", labels=date_format("%b %d")) +
+      xlab("Date") + ylab(input$sensorType)    
+ },  height=750, width=1650)
+
 })
