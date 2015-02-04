@@ -60,7 +60,11 @@ calculateFieldCapacity <- function(){
 }
 
 
+<<<<<<< HEAD:RainShelter Barley/Depth Separation - all sensors/datafunctions.R
 
+=======
+<<<<<<< HEAD
+>>>>>>> 57e5deb6739518e7e27abc9553305e225f562a98:RainShelter Barley/Depth Separation/datafunctions.R
 calculateLayerWater <- function(data) {
   layer_water<-data %>% 
     mutate(layerwater= ifelse(depth=='D1I', value*150/2, 
@@ -69,7 +73,21 @@ calculateLayerWater <- function(data) {
   group_by(Time, Group, depth) 
 
   return(layer_water)
+<<<<<<< HEAD:RainShelter Barley/Depth Separation - all sensors/datafunctions.R
 }
+=======
+=======
+calculateProfileWater <- function(data) {
+  profile_water<-data %>% 
+    mutate(layerwater= ifelse(depth=='D1I', value*150/2, 
+                              ifelse(depth=='D1B', value*150/2,
+                                     ifelse(depth=='D2', value*150, value*300))))%>%
+                                group_by(Time, Group, depth) %>%
+                                  summarise(profilewater=mean(layerwater, na.rm=TRUE))
+  
+  return(profile_water)
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 57e5deb6739518e7e27abc9553305e225f562a98:RainShelter Barley/Depth Separation/datafunctions.R
 
 calculateProfileWater <- function(data) {
   profile_water<-data %>% 
