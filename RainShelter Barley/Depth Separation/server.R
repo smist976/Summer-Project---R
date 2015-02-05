@@ -11,7 +11,15 @@ shinyServer(function(input, output) {
   subset_data <- reactive({
     start_date = input$dateRange[1]
     end_date = input$dateRange[2]
+<<<<<<< HEAD
     sensor_type ='VolumetricWaterContent'
+=======
+<<<<<<< HEAD
+    sensor_type ="VolumetricWaterContent"
+=======
+    sensor_type =input$sensorType
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 460b26b8609bbe32b90f2125dd2297e5c7b11172
     df <- mergeData(start_date, end_date, sensor_type)
     return(df)
   })
@@ -19,13 +27,30 @@ shinyServer(function(input, output) {
   
   summary_data <- reactive({
     
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> 460b26b8609bbe32b90f2125dd2297e5c7b11172
     layer_water<-subset_data()%>%
       calculateLayerWater()%>% 
           summarise(avg=mean(layerwater, na.rm=TRUE))
     return(layer_water)
+<<<<<<< HEAD
 
 
+=======
+=======
+    df <- subset_data()%>%
+      group_by(Group, Time) %>%
+        calculateProfileWater%>%
+          summarise(Mean=mean(profilewater, na.rm=TRUE), 
+                  Max=max(profilewater, na.rm=TRUE), 
+                  Min=min(profilewater, na.rm=TRUE))
+    print(profile_water)
+    return(df)
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 460b26b8609bbe32b90f2125dd2297e5c7b11172
   })
   
   min_value <- reactive ({
@@ -39,22 +64,46 @@ shinyServer(function(input, output) {
   max_value <- reactive ({
     df<-summary_data()
     #min_value <- max(df$Max, na.rm=TRUE)
+<<<<<<< HEAD
 
     max_value <- quantile(df$Max, .85)
 
+=======
+<<<<<<< HEAD
+    max_value <- quantile(df$Max, 0.85)
+=======
+    max_value <- quantile(df$Max, .85)
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 460b26b8609bbe32b90f2125dd2297e5c7b11172
     return(max_value)
   })
   
   output$soilwaterdeficitPlot <- renderPlot({
     
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> 460b26b8609bbe32b90f2125dd2297e5c7b11172
     ggplot(summary_data())+
       geom_line(aes(x=Time, y=avg, colour=Group, group=Group), size=0.6)+
       facet_wrap(~ depth, ncol=2, scales="free_y")+
       ylab("Layer Water (mm)") 
       #theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
   }, height=825, width=1650)
+<<<<<<< HEAD
 
 
 
+=======
+=======
+    ggplot(summary_data()) + 
+      geom_line(aes(x=Time, y=Mean, colour=Group, group=Group))+
+      facet_grid(depth~.) + 
+      ylim (min_value(), max_value()) +
+      scale_x_datetime(breaks = "2 days", labels=date_format("%b %d")) +
+      xlab("Date") + ylab(input$sensorType)    
+  }, height=600, width=1600)
+>>>>>>> 95d89e4280bdbbc3b1b6b55986b18c025e85c997
+>>>>>>> 460b26b8609bbe32b90f2125dd2297e5c7b11172
 })
