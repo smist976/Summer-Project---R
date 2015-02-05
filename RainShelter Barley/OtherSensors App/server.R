@@ -48,6 +48,7 @@ shinyServer(function(input, output) {
       geom_line(aes(x=Time, y=Mean, colour=Group, group=Group))+
       ylim (min_value(), max_value()) +
       scale_x_datetime(breaks = "2 days", labels=date_format("%b %d")) +
-      xlab("Date") + ylab(input$sensorType)    
+      xlab("Date") + ylab(input$sensorType) +
+      theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
   }, height=600, width=1600)
 })
