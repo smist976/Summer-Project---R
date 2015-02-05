@@ -24,6 +24,7 @@ shinyUI(
                      label = 'Date range input',
                      start = Sys.Date()- 30, end = Sys.Date()),
 
+     
       #)
       
       mainPanel(
