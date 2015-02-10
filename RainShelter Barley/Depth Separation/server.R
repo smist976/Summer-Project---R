@@ -51,6 +51,7 @@ shinyServer(function(input, output) {
     ggplot(summary_data())+
       geom_line(aes(x=Time, y=avg, colour=Group, group=Group), size=0.70)+
       facet_wrap(~ depth, ncol=2, scales="free_y")+
+<<<<<<< HEAD
       ylab("Layer Water (mm)")+ 
       theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
   }, height=700, width=1500)
@@ -58,4 +59,13 @@ shinyServer(function(input, output) {
 
 
 
+=======
+      ylab("Layer Water (mm)") 
+      #theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
+  }, height=825, width=1650)
+
+
+
+
+>>>>>>> 39a35aa07796c387b64b8e0f37708e6a6118af68
 })
